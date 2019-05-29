@@ -1,7 +1,0 @@
-#!/bin/sh
-
-source ~/catkin_ws/devel/setup.bash
-
-printf "\nStarting ZED...\n"
-	xterm -e roslaunch zed_wrapper zed_depth.launch & 
-	sleep 5
