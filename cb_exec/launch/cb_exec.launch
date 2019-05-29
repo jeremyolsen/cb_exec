@@ -1,0 +1,16 @@
+<launch>
+    <arg name="vehicle_type" default="apmroverwaypoint" />
+    <arg name="linear_speed" default="2.0" />
+    <arg name="altitude_gain" default="1.5" />
+    <arg name="dnn_turn_angle" default="10.0" />
+    <arg name="joy_type" default="shield" />
+    
+    <node pkg="cb_exec" type="cb_exec_node" name="cb_exec">
+        <param name="vehicle_type" value="$(arg vehicle_type)" />
+        <param name="linear_speed" value="$(arg linear_speed)" />
+        <param name="altitude_gain" value="$(arg altitude_gain)" />
+        <param name="dnn_turn_angle" value="$(arg dnn_turn_angle)" />
+        <param name="joy_type" value="$(arg joy_type)" />
+    </node>    
+</launch>
+
