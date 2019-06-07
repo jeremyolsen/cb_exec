@@ -1,17 +1,13 @@
 #!/bin/bash
 
-# uncomment to run rviz on the Nvidia Jetson TX1
-# unset GTK_IM_MODULE
-
 source ~/catkin_ws/devel/setup.bash
 
 clear
 
-
 # Run jetson at max performance?
 #
 # This must be run with sudo privelidges 
-read -n1 -r -p  "Enable maximum performance (Jetson)? [y/n] " key
+read -r -p  "Enable maximum performance (Jetson)? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -26,11 +22,11 @@ fi
 # Start roscore?
 #
 printf "\n"
-read -n1 -r -p "Start roscore? [y/n] " key
+read -r -p "Start roscore? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-    xterm -e 'roscore' &
+    'roscore' &
     sleep 2
 
 else
@@ -41,12 +37,12 @@ fi
 # Start MavROS?
 #
 printf "\n"
-read -n1 -r -p "Start MavROS manually - press any key to continue " key
+read -r -p "Start MavROS manually - press any key to continue " key
 
 if [ "$key" = 'y' ]; then
 
     # xterm -e sshpass -p 'raspberry' ssh -t pi@176.0.0.42 "rosrun mavros mavros_node _fcu_url:=udp:\/\/:14650@ _gcs_url:=udp:\/\/:14551@176.0.0.41:14550" &
-    # sleep 2
+    sleep 2
 
 else
     printf "\nskipping MavROS...\n"
@@ -56,7 +52,7 @@ fi
 # Start robot_localization?
 #
 printf "\n"
-read -n1 -r -p "Start robot_localiztion? [y/n] " key
+read -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -71,7 +67,7 @@ fi
 # Start ZED / rtabmap ?
 #
 printf "\n"
-read -n1 -r -p "Start ZED / rtabmap? [y/n] " key
+read -r -p "Start ZED / rtabmap? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -86,7 +82,7 @@ fi
 # Start move_base ?
 #
 printf "\n"
-read -n1 -r -p "Start Move_Base? [y/n] " key
+read -r -p "Start Move_Base? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -101,7 +97,7 @@ fi
 # Start cb_exec ?
 #
 printf "\n"
-read -n1 -r -p "Start cb_exec? [y/n] " key
+read -r -p "Start cb_exec? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
