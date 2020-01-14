@@ -58,7 +58,13 @@
   <build_depend>angles</build_depend>
   <build_depend>eigen</build_depend>
   <build_depend>eigen_conversions</build_depend>
+  <build_depend>zed_wrapper</build_depend>
+  <build_depend>serial</build_depend>
 
+
+  <depend>nav_core</depend>
+  <depend>nav_msgs</depend>
+  
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
@@ -67,6 +73,10 @@
   <exec_depend>angles</exec_depend>
   <exec_depend>eigen</exec_depend>
   <exec_depend>eigen_conversions</exec_depend>
+  <exec_depend>depthimage_to_laserscan</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>zed_wrapper</exec_depend>
+  <exec_depend>serial</exec_depend>
   
   <!-- TODO: Figure out what these do - not explained up above -->
   <!-- <exec_depend>roscpp</exec_depend>

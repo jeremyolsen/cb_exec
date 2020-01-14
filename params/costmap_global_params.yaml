@@ -1,0 +1,19 @@
+
+global_costmap:
+
+  global_frame: map
+  robot_base_frame: base_link
+  update_frequency: 4.0
+  publish_frequency: 1.0
+  static_map: true
+  #inflation_radius: 0.35
+  #always_send_full_costmap: true
+
+  transform_tolerance: 0.5
+
+  plugins:
+  - {name: static_layer, type: "costmap_2d::StaticLayer"}
+
+static_layer:
+  enabled:              true
+  map_topic:            "/map"

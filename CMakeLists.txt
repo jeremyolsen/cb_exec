@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(cb_exec)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -11,12 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  geometry_msgs
-  angles
-  cmake_modules
+  zed_wrapper
+  serial
   tf
-  tf2
-  eigen_conversions
 )
 
 ## System dependencies are found with CMake's conventions
@@ -111,30 +108,30 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES cb_exec
-   CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs eigen_conversions
-#  DEPENDS system_lib
+   CATKIN_DEPENDS roscpp rospy std_msgs zed_wrapper serial
+#   DEPENDS system_lib
 )
 
 ###########
 ## Build ##
 ###########
 
-set (CMAKE_CXX_STANDARD 14)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+#set (CMAKE_CXX_STANDARD 14)
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-    include
-    ${catkin_INCLUDE_DIRS}
-    ${Eigen_INCLUDE_DIRS}
+include_directories(zed_wrapper
+   include
+   ${catkin_INCLUDE_DIRS}
+   #${Eigen_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/cb_exec_node.cpp
-# )
+#add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -146,12 +143,11 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 
 ## Declare a C++ executable
-file(GLOB cb_exec_sources src/*.cpp)
+#file(GLOB cb_exec_sources src/*.cpp)
 
-add_executable(cb_exec_node
-    #${PROJECT_NAME} src/cb_exec_node.cpp
-    ${cb_exec_sources}
-)
+add_executable(arduino_receiver src/arduino_receiver.cpp)
+#add_executable(refresh_zed_odom src/refresh_zed_odom.cpp)
+#add_executable(${PROJECT_NAME} src/cb_exec_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,10 +160,13 @@ add_executable(cb_exec_node
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(cb_exec_node
+target_link_libraries(
+    arduino_receiver
     ${catkin_LIBRARIES}
-    ${tf_LIBRARIES}
+    #refresh_zed_odom 
+     
 )
+
 
 #############
 ## Install ##

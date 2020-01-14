@@ -40,11 +40,11 @@
 
 
     echo "moving to home dir, setting nvpmodel and running jetson_clocks"
-    xterm -e 'cd ~; nvpmodel -m 0; ./jetson_clocks.sh'
+    xterm -e 'cd ~; nvpmodel -m 0; sudo ./jetson_clocks.sh'
     sleep 5
     echo "moving to ~/swap, and deleting previous swap file"
     xterm -e 'cd ~/swap; rm -rf swapfile^M;'
     sleep 2
     echo "running create swap file"
-    xterm -e 'sh Jetson_Create_Swap_File.sh'
+    xterm -e 'sudo sh Jetson_Create_Swap_File.sh'
     sleep 2

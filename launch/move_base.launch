@@ -1,27 +1,41 @@
 <launch>
 
-	<remap from="openni_points" to="/planner_cloud"/>
+	<remap from="openni_points" to="/obstacles_cloud"/>
     <remap from="odom" to="/odometry/filtered/global" />
-	<remap from="map" to="rtabmap/proj_map"/>
+	<remap from="map" to="/rtabmap/grid_map"/>
 	<!-- <remap from="move_base_simple/goal" to="/planner_goal"/>   -->
-	<!-- using the RTABMAP LIDAR map... -->
 
    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
- 	      <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
- 	      <param name="controller_frequency" value="8.0" />
- 	      <param name="controller_patience" value="15.0" />
- 	      <param name="planner_frequency" value="0.0" />
+ 	      <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+		  <param name="base_global_planner" value="navfn/NavfnROS" /> -->
+		  <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+		  <param name="base_global_planner" value="navfn/NavfnROS" /> -->
+ 	      <!-- <param name="controller_frequency" value="5.0" />
+ 	      <param name="controller_patience" value="10.0" />
+ 	      <param name="planner_frequency" value="1.0" />
+		  <param name="planner_patience" value="0.5" />
  	      <param name="clearing_rotation_allowed" value="false" />
- 	      <param name="recovery_behavior_enabled" value="false" />
+ 	      <param name="recovery_behavior_enabled" value="false" /> -->
 
-    	  <rosparam file="/home/nvidia/catkin_ws/src/cb_exec/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
-     	  <rosparam file="/home/nvidia/catkin_ws/src/cb_exec/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    	  <rosparam file="/home/nvidia/catkin_ws/src/cb_exec/params/local_costmap_params.yaml" command="load" />
-    	  <rosparam file="/home/nvidia/catkin_ws/src/cb_exec/params/global_costmap_params.yaml" command="load" />
-    	  <rosparam file="/home/nvidia/catkin_ws/src/cb_exec/params/base_local_planner.yaml" command="load" />
+    	  <!-- <rosparam file="$(find cb_exec)/params/old/costmap_common_params.yaml" command="load" ns="global_costmap" />
+     	  <rosparam file="$(find cb_exec)/params/old/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    	  <rosparam file="$(find cb_exec)/params/old/local_costmap_params.yaml" command="load" />
+    	  <rosparam file="$(find cb_exec)/params/old/global_costmap_params.yaml" command="load" />
+    	  <rosparam file="$(find cb_exec)/params/old/base_local_planner.yaml" command="load" /> -->
+		  <rosparam file="$(find cb_exec)/params/move_base_params.yaml" command="load"                              />
+		  <rosparam file="$(find cb_exec)/params/costmap_common_params.yaml" command="load" ns="global_costmap"     />
+          <rosparam file="$(find cb_exec)/params/costmap_common_params.yaml" command="load" ns="local_costmap"      />
+          <rosparam file="$(find cb_exec)/params/costmap_local_params.yaml" command="load"                          />
+          <rosparam file="$(find cb_exec)/params/costmap_global_params.yaml" command="load"                         />
+          <!-- <rosparam file="$(find cb_exec)/params/base_local_planner_params.yaml" command="load"                     /> -->
+          <rosparam file="$(find cb_exec)/params/global_planner_params.yaml" command="load"                         />
+		  <rosparam file="$(find cb_exec)/params/teb_local_planner_params.yaml" command="load"                         />
 
 		  <remap from="/cmd_vel" to="/mavros/setpoint_velocity/cmd_vel_unstamped" />
 
    	</node>
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_ultrasonic_odom" args="0 0 0 0 0 0 1 odom ultrasonic"/>
 </launch>
+
+<!-- rostopic pub -r 10 /mavros/setpoint_velocity/cmd_vel_unstamped geometry_msgs/Twist '{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0} }' -->
