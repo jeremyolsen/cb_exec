@@ -6,7 +6,8 @@
 
 # Run jetson at max performance?
 #
-# This must be run with sudo privelidges 
+# This must be run with sudo privelidges
+printf "This is the 3D/VO versions of robot_localization and rtabmap launch files\n\n" 
 read -r -p  "Enable maximum performance (Jetson)? [y/n] " key
 
 if [ "$key" = 'y' ]; then
@@ -36,6 +37,21 @@ else
 fi
 
 #
+# Start wheel encoder?
+#
+printf "\n"
+read -r -p "Start wheel encoder? [y/n] " key
+
+if [ "$key" = 'y' ]; then
+
+    xterm -e sshpass -p 'nvidia' ssh -t nvidia@176.0.0.41 'source ~/catkin_ws/devel/setup.bash; roslaunch cb_exec wheel_encoder.launch; $SHELL -i' &
+    sleep 2
+
+else
+    printf "\nskipping wheel encoder...\n"
+fi
+
+#
 # Start MavROS?
 #
 printf "\n"
@@ -58,7 +74,7 @@ read -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-    xterm -e sshpass -p 'nvidia' ssh -t nvidia@176.0.0.41 'source ~/catkin_ws/devel/setup.bash; roslaunch cb_exec loco_withgps.launch; $SHELL -i' &
+    xterm -e sshpass -p 'nvidia' ssh -t nvidia@176.0.0.41 'source ~/catkin_ws/devel/setup.bash; roslaunch cb_exec loco_withgps_3D_vo.launch; $SHELL -i' &
     sleep 2
 
 else

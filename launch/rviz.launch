@@ -4,7 +4,7 @@
   <arg name="rviz"                    default="true" />
   
   <!-- Corresponding config files -->
-  <arg name="rviz_cfg"                default="~/catkin_ws/src/cb_exec/rtabmap_loco_gps.rviz" />
+  <arg name="rviz_cfg"                default="$(find cb_exec)/rtabmap_loco_gps.rviz" />
    
   <!-- <arg name="rgb_topic"               default="/rgb/image_raw" />
   <arg name="depth_registered_topic"  default="/depth/image_raw" />
