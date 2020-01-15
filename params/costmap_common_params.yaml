@@ -1,37 +1,47 @@
+footprint: [[ 0.45, 0.25], [ -0.45, 0.25], [ -0.45, -0.25], [ 0.45, -0.25]]
+footprint_padding: 0.1
+map_type: costmap
 
-#
-# Common Configuration (local_costmap) & (global_costmap)
-#
-robot_base_frame: base_link
-plugins:
-  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
-  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
-# Robot Specific
-footprint: [[ 0.765, 0.765], [ -0.765, 0.765], [ -0.765, -0.765], [ 0.765, -0.765]] # corrected to include tires in the footprint
-footprint_padding: 0.10 # 10cm buffer for safety. maybe change for more precision
-inflation_radius: 1.5
-transform_tolerance: 1.0 # Specifies the delay in transform (tf) data that is tolerable in seconds.
-controller_patience: 2.0 # How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.
+obstacle_layer:
+  enabled: true
+  observation_sources: laser_scan_sensor #point_cloud_sensor
+  obstacle_range: 4.0 # trusted distance in filling in obstacles phase
+  raytrace_range: 4.5 # trusted distance in clearing phase
+  #inflation_radius: 0.2
+  track_unknown_space: false
+  combination_method: 1
 
-
-#added
-meter_scoring: true
-
-# base global planner
-NavfnROS:
-  allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
-
-inflater_layer:
-  inflation_radius: 1.5
-
-obstacles_layer:
-  observation_sources: obstacles
-  
-  obstacles: {
-    data_type: PointCloud2,
-    topic: /obstacles,
+  laser_scan_sensor: {
+    topic: /zed/zed_node/laser_scan,
+    sensor_frame: zed_left_camera_frame,
+    data_type: LaserScan,
     marking: true,
-    clearing: true,
-    max_obstacle_height: 1.5,
-    min_obstacle_height: 0.0
-  }
+    clearing: true}
+  
+  point_cloud_sensor: {
+    sensor_frame: zed_camera_center,
+    data_type: PointCloud2,
+    topic: /zed/zed_node/point_cloud/cloud_registered,
+    expected_update_rate: 15.0,
+    marking: true,               # the sensor can't mark obstacles
+    clearing: true,               # the sensor only clear obstacles
+    min_obstacle_height: 0.05,
+    max_obstacle_height: 1.0,
+    obstacle_range: 10,           # range of point cloud is less than lidar.
+    observation_persistence: 2.0}  
+  
+inflation_layer:
+  enabled: true
+  cost_scaling_factor: 0.1 # exponential rate at which the obstacle cost drops off (default: 10), see http://wiki.ros.org/costmap_2d/flat
+  inflation_radius: 0.15 # max. distance from an obstacle at which costs are incurred for planning paths.
+
+
+
+# sonar_layer:
+#   enabled: true
+#   frame: ultrasonic
+#   topics: ['/mavros/distance_sensor/rangefinder_pub']
+#   no_readings_timeout: 1.0
+#   clear_threshold: 0.25
+#   mark_threshold: 0.75
+#   clear_on_max_reading: true

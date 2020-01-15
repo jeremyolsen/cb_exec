@@ -1,0 +1,9 @@
+<launch>
+  <node name="wheel_encoder" pkg="cb_exec" type="arduino_receiver" output="screen" respawn="false" />
+    <!-- <param name="~publish_touch" value="True" />
+    <param name="~wheel_diameter" value="0.200" />
+    <param name="~ticks_per_revolution" value="12" />
+    <param name="~serial_device" value="/dev/ttyTHS2" />
+    <param name="~serial_rate" value="9600" />
+  </node> -->
+</launch>

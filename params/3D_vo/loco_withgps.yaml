@@ -21,23 +21,47 @@ ekf_se_odom:
   # vroll, vpitch, vyaw
   # ax, ay, az
 
-  odom0: zed/zed_node/odom
+  #wheel_encoder/odom
+
+  odom0: wheel_encoder/odom
   odom0_config: [true, true, false,
-                 false, false, true,
-                 true,  false,  false,
                  false, false, false,
-                 true, false, false]
+                 false, false,  false,
+                 false, false, false,
+                 false, false, false]
   odom0_queue_size: 10
   odom0_nodelay: true
-  odom0_differential: false
+  odom0_differential: true
   odom0_relative: true
+
+  # odom1: zed/zed_node/odom
+  # odom1_config: [false, false, false,
+  #                true, true, true,
+  #                false,  false,  false,
+  #                false, false, false,
+  #                false, false, false]
+  # odom1_queue_size: 10
+  # odom1_nodelay: true
+  # odom1_differential: false
+  # odom1_relative: true
+
+  # odom1: vo
+  # odom1_config: [true, true, false,
+  #                false, false, true,
+  #                false,  false,  false,
+  #                false, false, false,
+  #                false, false, false]
+  # odom1_queue_size: 10
+  # odom1_nodelay: true
+  # odom1_differential: true
+  # odom1_relative: true
 
   imu0: mavros/imu/data
   imu0_config: [false, false, false,
-                false,  false,  true,
+                true,  true,  true,
                 false, false, false,
                 false,  false,  true,
-                false,  false,  false]
+                true,  true,  true]
   imu0_nodelay: false
   imu0_differential: false
   imu0_relative: true
@@ -101,7 +125,7 @@ ekf_se_map:
   base_link_frame: base_link
   world_frame: map
 
-  publish_tf: true
+  publish_tf: false
 
    # x, y, z
   # roll, pitch, yaw
@@ -109,34 +133,56 @@ ekf_se_map:
   # vroll, vpitch, vyaw
   # ax, ay, az
 
-  odom0: zed/zed_node/odom
-  odom0_config: [true, true, false,
-                 false, false, true,
-                 true,  false,  false,
-                 false, false, false,
-                 true, false, false]
-  odom0_queue_size: 10
-  odom0_nodelay: true
-  odom0_differential: false
-  odom0_relative: true
+  # odom0: wheel_encoder/odom
+  # odom0_config: [true, true, false,
+  #                false, false, false,
+  #                false,  false,  false,
+  #                false, false, false,
+  #                false, false, false]
+  # odom0_queue_size: 10
+  # odom0_nodelay: true
+  # odom0_differential: true
+  # odom0_relative: true
 
-  odom1: odometry/gps
-  odom1_config: [true,  true,  false,
+  # odom1: zed/zed_node/odom
+  # odom1_config: [false, false, false,
+  #                true, true, true,
+  #                false,  false,  false,
+  #                false, false, false,
+  #                false, false, false]
+  # odom1_queue_size: 10
+  # odom1_nodelay: true
+  # odom1_differential: false
+  # odom1_relative: true
+
+  # odom1: vo
+  # odom1_config: [true, true, false,
+  #                false, false, true,
+  #                false,  false,  false,
+  #                false, false, false,
+  #                false, false, false]
+  # odom1_queue_size: 10
+  # odom1_nodelay: true
+  # odom1_differential: true
+  # odom1_relative: true
+  
+  odom3: odometry/gps
+  odom3_config: [true,  true,  false,
                  false, false, false,
                  false, false, false,
                  false, false, false,
                  false, false, false]
-  odom1_queue_size: 10
-  odom1_nodelay: true
-  odom1_differential: false
-  odom1_relative: true
+  odom3_queue_size: 10
+  odom3_nodelay: true
+  odom3_differential: false
+  odom3_relative: true
 
   imu0: mavros/imu/data
   imu0_config: [false, false, false,
-                false,  false,  true,
+                true,  true,  true,
                 false, false, false,
                 false,  false,  true,
-                false,  false,  false]
+                true,  true,  true]
   imu0_nodelay: false
   imu0_differential: false
   imu0_relative: true

@@ -12,7 +12,7 @@
 
 <launch>
 
-  <rosparam command="load" file="$(find cb_exec)/params/loco_withgps.yaml" />
+  <rosparam command="load" file="$(find cb_exec)/params/3D_vo/loco_withgps.yaml" />
 
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_odom" clear_params="true">
     <remap from="/odometry/filtered" to="/odometry/filtered/local"/>
@@ -32,7 +32,8 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_fcu_frd" args="0 0 0 0 0 0 1 map fcu_frd"/>
   <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_local_origin" args="0 0 0 0 0 0 1 map local_origin"/>
   <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_local_origin_nded" args="0 0 0 0 0 0 1 map local_origin_ned"/>
-  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_base_link" args="0 0 0 0 0 0 1 map base_link"/>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="tf_odom_base_link" args="0 0 0 0 0 0 1 odom base_link"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_odom" args="0 0 0 0 0 0 1 map odom"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_base_link" args="0 0 0 0 0 0 1 odom base_link"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="tf_map_base_link" args="0 0 0 0 0 0 1 map base_link"/> -->
 
 </launch>

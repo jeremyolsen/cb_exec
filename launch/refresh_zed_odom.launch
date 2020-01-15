@@ -1,0 +1,5 @@
+<launch>
+
+   <node pkg="cb_exec" type="refresh_zed_odom" respawn="false" name="refresh_zed_odom" output="screen" />
+	
+</launch>

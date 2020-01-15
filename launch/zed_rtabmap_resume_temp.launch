@@ -46,18 +46,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <include file="$(find zed_wrapper)/launch/zed_camera.launch">
 			<arg name="svo_file"            	value="$(arg svo_file)" />
             <arg name="node_name"               value="$(arg zed_node_name)" />
-			<!-- <arg name="camera_model"        	value="$(arg camera_model)" /> -->
-			<arg name="publish_map_tf"          value="false" />
-            <arg name="publish_tf"              value="false" />
+			<arg name="camera_model"        	value="$(arg camera_model)" />
+			<!-- <arg name="publish_map_tf"          value="false" />
+            <arg name="publish_tf"              value="false" /> -->
             <arg name="publish_urdf"            value="true" />
             <arg name="quality"                 value="1" />
             <arg name="sensing_mode"            value="0" />
             <arg name="depth_stabilization"     value="0" />
             <arg name="resolution"              value="2" />
             <arg name="pose_smoothing"          value="1" />
-            <arg name="two_d_mode"              value="true" />
-            <arg name="fixed_z_value"           value="0.3" />
-            
         </include>
 
         <!-- Virtual laser scan as nodelet -->
@@ -73,24 +70,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   
     <!-- RTAB-map Node-->
     <include file="$(find cb_exec)/launch/rtabmap_modified.launch">
-      <arg name="rtabmap_args"                  value="--delete_db_on_start" />
-      <arg name="localization"                  value="false" />
+      <arg name="rtabmap_args"                  value="" />
+      <arg name="localization"                  value="true" />
       <arg name="rgb_topic"               	    value="/$(arg zed_namespace)/$(arg zed_node_name)/rgb/image_rect_color" />
       <arg name="depth_topic"             	    value="/$(arg zed_namespace)/$(arg zed_node_name)/depth/depth_registered" />
       <arg name="camera_info_topic"       	    value="/$(arg zed_namespace)/$(arg zed_node_name)/rgb/camera_info" />
       <arg name="depth_camera_info_topic" 	    value="/$(arg zed_namespace)/$(arg zed_node_name)/depth/camera_info" />
       <arg name="frame_id"                      value="base_link" />
-      
-      <!-- Should be true for not synchronized camera topics 
-           (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
-      <arg name="approx_sync"                   value="false"                            />
+      <arg name="approx_sync"                   value="true"                            />
       <arg name="visual_odometry"               value="false" />
-      <!-- <arg name="odom_topic"                    value="/odometry/filtered/global" /> -->
-      <arg name="odom_frame_id"                 value="odom" />
+      <arg name="odom_topic"                    value="/odometry/filtered/global" />
       <!-- <arg name="odom_topic"                    value="/$(arg zed_namespace)/$(arg zed_node_name)/odom" /> -->
       <arg name="rviz"                          value="false" />
       <arg name="rtabmapviz"                    value="false" />
-      <arg name="publish_tf_map"                value="true" />
+      <arg name="publish_tf_map"                value="false" />
       <arg name="queue_size"                    value="10"/>
 
       
@@ -105,11 +98,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <param name="Grid/NoiseFilteringMinNeighbors" type="string" value="20"  />
       <param name="Grid/NoiseFilteringRadius" type="string"   value="0.5" />
       <param name="Grid/FlatObstacleDetected" type="string"   value="false" />
-      <param name="Grid/CellSize"             type="string"   value="0.05" />
-      <param name="Grid/RangeMax"             type="string"   value="5.0" />
+      <param name="Grid/CellSize"             type="string"   value="0.01" />
+      <param name="Grid/RangeMax"             type="string"   value="3.0" />
       <param name="Grid/3D"                   type="string"   value="false" />
       <!-- <param name="Grid/DepthRoiRatios"       type="string"   value="0.0 0.0 0.0 0.050" /> -->
-      <param name="Grid/Scan2dUnknownSpaceFilled" type="bool" value="true" />
       <param name="Grid/MinClusterSize"       type="string"      value="10"/>
       <param name="Grid/ClusterRadius"        type="string"   value="0.02"/>
       <param name="GridGlobal/Eroded"         type="string"   value="false"/>
@@ -117,43 +109,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <param name="Grid/NormalsSegmentation"   type="string"   value="false" />
       <param name="Grid/MaxObstacleHeight"    type="string"   value="0.5"/>
       <param name="GridGlobal/MinSize"        type="string"   value="100.0" /> 
-      <param name="RGBD/NeighborLinkRefining" type="string"   value="true"/>
-      <param name="RGBD/ProximityBySpace"     type="string"   value="false"/>
+      <param name="RGBD/ProximityBySpace"     type="string"   value="true"/>
       <param name="RGBD/AngularUpdate"        type="string"   value="0.01"/>
       <param name="RGBD/LinearUpdate"         type="string"   value="0.01"/>
-      <param name="RGBD/OptimizeFromGraphEnd" type="string"   value="false"/>
+      <param name="RGBD/OptimizeFromGraphEnd" type="string"   value="true"/>
       <param name="RGBD/LoopClosureReextractFeatures" type="string"  value="true" />
-      <param name="Reg/Force3DoF"             type="string"   value="true"/>
-      <param name="Vis/MinInliers"            type="string"   value="15"/>
+      <param name="Reg/Force3DoF"             type="string"   value="false"/>
+      <param name="Vis/MinInliers"            type="string"   value="25"/>
       <param name="Vis/InlierDistance"        type="string"   value="0.1"/>
       <param name="Vis/FeatureType"           type="string"   value="0" />
       <param name="Mem/IncrementalMemory"     type="string"   value="true" />
-      <!-- <param name="Optimizer/Slam2D"          type="bool"     value="true" /> -->
       
       <!-- Added for testing 7/18/19 - Testing with SURF -->
       <!-- <param name="Vis/FeatureType"           type="string"   value="0" />   use SURF -->
-      <!-- <param name="Vis/MaxDepth"              type="string"   value="5" /> -->
-      
-      <param name="Rtabmap/StartNewMapOnLoopClosure" type="bool"  value="true" />
+      <!-- <param name="Vis/MaxDepth"              type="string"   value="5" />
+
       <param name="Rtabmap/TimeThr"           type="string"   value="700" />   
-      <param name="Rtabmap/DetectionRate"     type="string"   value="5" />
+      <param name="Rtabmap/DetectionRate"     type="string"   value="1" />
          
-      <param name="Kp/MaxDepth"               type="string"   value="10" />
-      <!-- <param name="Kp/WordsPerImage"          type="string"   value="200" /> -->
-      <!-- <param name="Kp/RoiRatios"              type="string"   value="0.03 0.03 0.04 0.04" /> -->
+      <param name="Kp/MaxDepth"               type="string"   value="0" />
+      <param name="Kp/WordsPerImage"          type="string"   value="200" />
+      <param name="Kp/RoiRatios"              type="string"   value="0.03 0.03 0.04 0.04" /> -->
       <!-- <param name="Kp/DetectorStrategy"       type="string"   value="0" />   use SURF -->
       <!-- <param name="Kp/NNStrategy"             type="string"   value="1" />   kdTree -->
-      <!-- <param name="Vis/CorNNType"             type="string"   value="2" /> -->
+      <!-- <param name="Vis/CorNNType"             type="string"   value="2" />
 
 
       <param name="SURF/HessianThreshold"     type="string"   value="1000" />
       <param name="SURF/GpuVersion"           type="string"   value="true" />
 
-      <param name="Optimizer/Strategy"        type="string"   value="1" />
+      <param name="LccBow/MinInliers"         type="string"   value="10" /> -->
+      <!-- <param name="LccBow/EstimationType"     type="string"   value="1" /> 3D->2D (PnP) -->
 
-      <param name="RGBD/OptimizeMaxError"     type="string"   value="1.5"/>
+      <!-- <param name="LccReextract/Activated"    type="string"   value="true" />
+      <param name="LccReextract/MaxWords"     type="string"   value="500" />
+      <param name="LccReextract/MaxDepth"     type="string"   value="10" />
+      
+      <param name="Grid/FootprintHeight"      type="string"   value="0.30" />
+      <param name="Grid/FootprintWidth"       type="string"   value="0.30" />
+      <param name="Grid/FootprintLength"      type="string"   value="0.50" />  -->
 
-      <param name="RGBD/MaxOdomCacheSize"     type="string"   value="100" />
+      <!-- http://answers.ros.org/question/225694/interfacing-rtabmap-and-robot_localization/   -->
+      <param name="RGBD/OptimizeIterations"   type="string"   value="0" />
+
+      <param name="RGBD/OptimizeStrategy"     type="string"   value="1" />
+      <param name="RGBD/OptimizeRobust"       type="string"   value="true"/>
+      <param name="RGBD/OptimizeMaxError"     type="string"   value="2.5"/>
 
     </include>
 
@@ -165,36 +166,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
       <param name="frame_id"               type="string" value="base_link" />
       <param name="publish_tf"             type="bool"   value="false" />
-      <param name="publish_null_when_lost" type="bool"   value="true" />
-      <param name="approx_sync"            type="bool"   value="false" />
-      
-      <param name="Reg/Force3DoF"          type="string" value="true"/>
-      <param name="Reg/Strategy"           type="string" value="0" />
+      <param name="publish_null_when_lost" type="bool"   value="false" />
+      <param name="approx_sync"            type="bool"   value="true" />
+
+      <param name="Reg/Force3DoF"          type="string" value="false"/>
       <param name="Vis/InlierDistance"     type="string" value="0.05"/>
       <param name="Odom/FillInfoData"      type="string" value="true"/>
       <param name="Odom/ResetCountdown"    type="string" value="1"/>
       <param name="Odom/Holonomic"         type="bool"   value="false" />
       <param name="Odom/Force2D"           type="bool"   value="true" />
-      <param name="Odom/FilteringStrategy" type="string" value="1" />
-      <param name="Odom/AlignWithGround"   type="bool"   value="true" />
       <param name="Vis/FeatureType"        type="string" value="0"/> 
       <param name="OdomF2M/MaxSize"        type="string" value="1000"/>
       <param name="SURF/HessianThreshold"  type="string" value="1000" />
       <!-- <param name="SURF/GpuVersion"           type="bool"   value="true" /> -->
       <param name="Vis/MaxFeatures"        type="string" value="600"/>
-      <param name="Odom/GuessMotion"       type="bool"   value="false"/>
-      <param name="Vis/MaxDepth"           type="string" value="10"/>
-      <!-- <param name="GFTT/MinDistance"       type="string" value="10"/> -->
-      <param name="GFTT/QualityLevel"      type="string" value="0.001"/>
-      <!-- <param name="Optimizer/Iterations"   type="string" value="0" /> -->
-      <param name="Vis/EstimationType"     type="string" value="1" />
-      <param name="Odom/Strategy"          type="string" value="1"/>
-      <param name="Vis/CorType"            type="string" value="1"/>
+      <param name="Odom/GuessMotion"       type="bool"   value="true"/>
+      <param name="Vis/MaxDepth"           type="string" value="20"/>
     </node>
 
-    <!-- <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager" output="screen"/> -->
+    <node pkg="nodelet" type="nodelet" name="standalone_nodelet"  args="manager" output="screen"/>
     <!-- Create point cloud for the obstacles detection nodelet -->
-    <!-- <node pkg="nodelet" type="nodelet" name="points_xyz" args="load rtabmap_ros/point_cloud_xyz standalone_nodelet">
+    <node pkg="nodelet" type="nodelet" name="points_xyz" args="load rtabmap_ros/point_cloud_xyz standalone_nodelet">
         <remap from="depth/image"       to="/$(arg zed_namespace)/$(arg zed_node_name)/depth/depth_registered"/>
         <remap from="depth/camera_info" to="/$(arg zed_namespace)/$(arg zed_node_name)/depth/camera_info"/>
         <remap from="cloud"                 to="depth_cloud"/>
@@ -213,6 +205,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <param name="map_frame_id" type="string" value="map"/>
         <param name="wait_for_transform" type="bool" value="true"/>
 
-    </node> -->
+    </node>
     
 </launch>
