@@ -1,6 +1,8 @@
+# Captain Barnacle
+
 **Captain Barnacle** the name of the rover project that is composed of autonomous visual navigation components of an ardupilot / PX4 based rover platform built on ros-kinetic.  Packages used as a part of this project include:
 
-#
+## Other Packages
 
 **rtabmap** - Open source slam solutions that is being used for mapping, visual odometry and localization and the output of costmaps which are used in obstacle avoidance processes.
 
@@ -16,7 +18,7 @@
 
 **wheel_encoder** - custom rear wheel encoders that is using an arduino micro to send and encoder stream to the ros node, which in turn is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization)
 
-#
+## Project Goals
 
 The initial goal of the platform is to be used for a RoboMagellan competition, in which the robot searches and touched 3 traffic cones placed around an area, like a park or urban area that has multiple obstacles.  This will include a navigational executive node that will be listening to artificial intelligence in the form of a R-CNN which will identify traffic cones.  Executive node will then give navigation commands based upon the inference of the R-CNN.
 
