@@ -4,19 +4,19 @@
 
 ## Other Packages
 
-**rtabmap** - Open source slam solutions that is being used for mapping, visual odometry and localization and the output of costmaps which are used in obstacle avoidance processes.
+* **rtabmap:** Open source slam solutions that is being used for mapping, visual odometry and localization and the output of costmaps which are used in obstacle avoidance processes.
 
-**robot_localization** - EKF/UKF sensor fusion package for gps, wheel_odometry, viual_odometry, and IMU
+* **robot_localization:** EKF/UKF sensor fusion package for gps, wheel_odometry, viual_odometry, and IMU
 
-**move_base** - The move_base package provides an implementation of an action that, given a goal in the world, will attempt to reach it with a mobile base. The move_base node links together a global and local planner to accomplish its global navigation task.
+* **move_base:** The move_base package provides an implementation of an action that, given a goal in the world, will attempt to reach it with a mobile base. The move_base node links together a global and local planner to accomplish its global navigation task.
 
-**mavros** - This package provides communication driver for various autopilots with MAVLink communication protocol. Additional it provides UDP MAVLink bridge for ground control stations (e.g. QGroundControl).
+* **mavros:** This package provides communication driver for various autopilots with MAVLink communication protocol. Additional it provides UDP MAVLink bridge for ground control stations (e.g. QGroundControl).
 
-**zed-ros-wrapper** - This package lets you use the ZED stereo camera with ROS. It outputs the camera left and right images, depth map, point cloud, pose information and supports the use of multiple ZED cameras.
+* **zed-ros-wrapper:** This package lets you use the ZED stereo camera with ROS. It outputs the camera left and right images, depth map, point cloud, pose information and supports the use of multiple ZED cameras.
 
-**teb_local_planner** - The teb_local_planner package implements a plugin to the base_local_planner of the 2D navigation stack. The underlying method called Timed Elastic Band locally optimizes the robot's trajectory with respect to trajectory execution time, separation from obstacles and compliance with kinodynamic constraints at runtime.
+* **teb_local_planner:** The teb_local_planner package implements a plugin to the base_local_planner of the 2D navigation stack. The underlying method called Timed Elastic Band locally optimizes the robot's trajectory with respect to trajectory execution time, separation from obstacles and compliance with kinodynamic constraints at runtime.
 
-**wheel_encoder** - custom rear wheel encoders that is using an arduino micro to send and encoder stream to the ros node, which in turn is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization)
+* **wheel_encoder:** Custom rear wheel encoders that is using an arduino micro to send and encoder stream to the ros node, which in turn is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization)
 
 ## Project Goals
 
