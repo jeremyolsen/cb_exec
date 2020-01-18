@@ -16,7 +16,7 @@
 
 * **teb_local_planner:** The teb_local_planner package implements a plugin to the base_local_planner of the 2D navigation stack. The underlying method called Timed Elastic Band locally optimizes the robot's trajectory with respect to trajectory execution time, separation from obstacles and compliance with kinodynamic constraints at runtime.
 
-* **wheel_encoder:** Custom rear wheel encoders that is using an arduino micro to send and encoder stream to the ros node, which in turn is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization)
+* **arduino_receiver:** Custom node that is integrating in messages from an arduino micro a*, in which it is receiveing inputs from the rear wheel encoders.  This ros node is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization).
 
 ## Project Goals
 
