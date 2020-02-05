@@ -20,7 +20,7 @@
 
 ## The Robot
 
-The project revolved around the concept of a RC based rover.  The base chassis is a Traxxas XMAXX 6s 4x4.  This is being controlled by a Navio 2/Rasperry PI that is running Ardupilot.  The companion computer is a Nvidoa TX2 which is running ROS/SLAM and other executive functions.  The Navio 2 board contains and IMU, compass, and GPS.  These sensors data is fed back into ROS using MAVROS which is being fused using a EKF.  Lastly, a ZED Stero camera is used for vision application, such as an R-CNN for object recognition, and depth sensing for the SLAM application.
+The project revolved around the concept of a RC based rover.  The base chassis is a Traxxas XMAXX 6s 4x4.  This is being controlled by a Navio 2/Rasperry PI that is running Ardupilot.  The companion computer is a Nvida TX2 which is running ROS, SLAM (rtabmap), navigation, path planning and other executive functions.  The Navio 2 board contains and IMU, compass, and GPS.  These sensors data is fed back into ROS using MAVROS which is being fused using a EKF.  Lastly, a ZED Stero camera is used for vision application, such as an R-CNN for object recognition, and depth sensing for the SLAM application.
 
 ## Project Goals
 
