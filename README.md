@@ -18,9 +18,14 @@
 
 * **arduino_receiver:** Custom node that is integrating in messages from an arduino micro a*, in which it is receiveing inputs from the rear wheel encoders.  This ros node is converting it to odometry Twist messages to be used by UKF/EKF (robot_localization).
 
+## The Robot
+
+The project revolved around the concept of a RC based rover.  The base chassis is a Traxxas XMAXX 6s 4x4.  This is being controlled by a Navio 2/Rasperry PI that is running Ardupilot.  The companion computer is a Nvidoa TX2 which is running ROS/SLAM and other executive functions.  The Navio 2 board contains and IMU, compass, and GPS.  These sensors data is fed back into ROS using MAVROS which is being fused using a EKF.  Lastly, a ZED Stero camera is used for vision application, such as an R-CNN for object recognition, and depth sensing for the SLAM application.
+
 ## Project Goals
 
 The initial goal of the platform is to be used for a RoboMagellan competition, in which the robot searches and touched 3 traffic cones placed around an area, like a park or urban area that has multiple obstacles.  This will include a navigational executive node that will be listening to artificial intelligence in the form of a R-CNN which will identify traffic cones.  Executive node will then give navigation commands based upon the inference of the R-CNN.
 
-More:  Captain Barnacle is a fictional character on a kids TV show, Octonauts, which can be found on Netflix.  Captain Barnacle is a polar bear and the leader of a crew of underwater animal explorers.   My son choose it after he had asked me if he could name the rover.
+## About
+Captain Barnacle is a fictional character on a kids TV show, Octonauts, which can be found on Netflix.  Captain Barnacle is a polar bear and the leader of a crew of underwater animal explorers.   My son choose it after he had asked me if he could name the rover.
 
